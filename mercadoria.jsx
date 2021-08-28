@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import carrinho from './carrinho.png'
 
 
-const Mercadoria = ({nome, preço, fonte, adcionar, bkcn, frete, id, total }) => {
+const Mercadoria = ({nome, preço, fonte, adcionar, bkcn, frete, id, total, score }) => {
 
     //const {} = props
         
@@ -12,10 +12,14 @@ const Mercadoria = ({nome, preço, fonte, adcionar, bkcn, frete, id, total }) =>
         
             <div style={{backgroundColor: bkcn, border: 'rgb(104, 103, 103) 0.2px solid', 
             width:'300px', margin: '10px'}}>
-                <div  style={{display:"inline-block"}}>
-                    <img src={carrinho} onClick={adcionar} style={{width:'40px', height:'auto', marginLeft:'200px'}}>
-                        
-                    </img>
+                
+                <div  style={{display: 'flex', position: 'relative', alignItems:'initial', flexWrap:'wrap' }}>
+                    
+                     <p  style={{fontFamily: 'Helvetica, Arial, sans-serif', fontSize: '15px',   
+                     color: 'rgba(102, 102, 102, 1)', marginLeft: '5px'}}> Score: {score} </p>
+                    
+                    <img src={carrinho} onClick={adcionar} style={{width:'60px', height:'auto', marginLeft:'180px'}} />
+                    
                 </div>
     
                         
