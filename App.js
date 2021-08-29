@@ -133,11 +133,11 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
                  
                       <select onChange={mudou} style={{border: "cornsilk 0.1px solid", marginTop: "6px"}}>
                           <option  value="nula">Classificar por</option>
-                          <option value="a1">Ordem Alfabetica Crescente</option>
-                          <option value="a2">Ordem Alfabetica Decrescente</option>
+                          <option value="a1">Ordem Alfabetica</option>
+                          <option value="a2">Ordem Alfabetica Invertida</option>
                           <option value="p1">Maior Preço</option>
                           <option value="p2" >Menor Preço</option>
-                          <option value="sc">Score</option>                            
+                          <option value="sc">Popularidade</option>                            
                       </select>
                       
                           
