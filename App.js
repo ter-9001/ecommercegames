@@ -9,6 +9,8 @@ import './index.css';
 import carrinho from './carrinho.png'
 import trash from './trash.png'
 
+
+
 //var carrinho1 =[];
 
 
@@ -17,7 +19,7 @@ import trash from './trash.png'
 
 //function 
 
-
+var pesquisados="nulo";
 
 
 function Lista(prosp){
@@ -128,7 +130,7 @@ function Lista(prosp){
                 else
                     return ( <div> <ul  id="lista_carrinho"  class="list-group" 
                 style={{position:'absolute', justifyContent:"center", 
-                top: '80px', left:'40%'}}> {lista1} </ul> </div> );
+                top: '80px', left:'40%', zIndex: '5000'}}> {lista1} </ul> </div> );
               
     
    
@@ -137,7 +139,7 @@ function Lista(prosp){
 }
 
 
-const Navbar_main = ({mudou, name, botãocarrinho, AE_lista}) => {
+const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
 
   
 
@@ -175,17 +177,17 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista}) => {
           
              
           
-                <form className=" form-inline">
+                <div className=" form-inline">
           
                   
-                        <input className="form-control " type="search"  placeholder="Search" aria-label="Search"
-                        style={{backgroundColor: "#682ea2", width: "400px"}} />
+                        <input className="form-control " type="search"  placeholder="Pesquise o item pelo nome" aria-label="Search"
+                        style={{backgroundColor: "#682ea2", width: "400px"}} onChange={pesquisar}/>
           
                         
-                            <img onClick={AE_lista} class="rounded-circle image" src={carrinho}  style={{width: "60px", height: "auto"}} />
+                        <img onClick={AE_lista} class="rounded-circle image" src={carrinho}  style={{width: "60px", height: "auto"}} />
                         
                         
-                </form>
+                </div>
                 
           
           
@@ -240,8 +242,15 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista}) => {
 
     let filter = [];
 
-   
+    if(pesquisados != "nulo")
+        return pesquisados;
 
+    
+
+    if(this.state.ordem == 'nula')
+    {
+      return this.state.produtos;
+    }
     if(this.state.ordem == 'sc')
     {
                                       function sortSC(property){
@@ -458,18 +467,41 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista}) => {
               
       
   }
+
+  Pesquisar = (e) =>{
+
+    
+      var procurando =e.target.value;
+      var todos = this.state.produtos;
+
+      var achou=[];
+
+       
+       try
+        {
+            
+             achou = todos.filter(obj => obj.name.indexOf(procurando) != -1 );
+           
+        }catch(e1){ console.log(e1)} 
+        
+
+       if(achou != []) 
+        pesquisados = achou;
+     
+
+
+
+
+  }
   
   render()
   {
 
     const {dados} = this.state.produtos; 
    
+      var a = this.ordenar();
+      console.log("a", a);
 
-    
-
-    
-    //console.log("produtos", this.state.produtos);
-    if(this.state.ordem == 'nula')
                   return (
                     <div>
                      
@@ -483,18 +515,21 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista}) => {
                       
                  
                    
-                    <Navbar_main mudou={this.Mudou} AE_lista={() => this.AE_lista()}/>
+                    <Navbar_main mudou={this.Mudou} AE_lista={() => this.AE_lista()} pesquisar={this.Pesquisar}/>
 
                     
                     
-                      { this.state.produtos.map((items, index) =>{
+                      { a.map((items, index) =>{
 
                         var backgroundColornow='#ffffff';
                               
                                if(this.state.carrinho1.includes(items.id))
-                                 backgroundColornow ="#cc2738"  
+                                 backgroundColornow ="#cc2738"
+                                 
+                                 //const image= require('./styles/'+items.image);
                               
                                 return(
+                                  
                                   
                                 
                                     
@@ -503,7 +538,8 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista}) => {
                                       frete={this.Adcionar_Frete(items.price)}
                                       key={items.id} id={items.id} 
                                       bkcn={backgroundColornow} adcionar={() => this.Adcionar(items.id)}
-                                      nome={items.name} preço ={items.price} fonte={items.image}/>
+                                      nome={items.name} preço ={items.price} fonte={require("./styles/"+ items.image).default}
+                                      score={items.score}/>
                                   </div>
                                 
                                   )                           
@@ -515,53 +551,8 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista}) => {
                       }
                     </div>
                   );
-      else{
         
-        var a = this.ordenar();
-        
-
-        return (
-          <div>
-           <Lista /> 
-          <Navbar_main mudou={this.Mudou} botãocarrinho={this.AE_lista}/>
           
-                            {
-                              
-                                
-
-                              a.map((items, index) =>{
-
-                              
-                              
-                                return(
-                                  
-                                
-                                    
-                                  <div style={{display: 'inline-flex', alignItems: 'start'}}>
-                                      <Mercadoria  total={this.Total(items.price, this.Adcionar_Frete(items.price) )} 
-                                      frete={this.Adcionar_Frete(items.price)}
-                                      key={items.id} id={items.id} 
-                                      bkcn={'#ffffff'} adcionar={() => this.Adcionar(items.id)}
-                                      nome={items.name} preço ={items.price} fonte={items.image}/>
-                                  </div>
-                                
-                                  )                           
-
-
-
-                              })
-
-
-
-
-                               
-                            }
-          
-          
-          
-          </div>
-        );
-      }                  
 
   }
 
