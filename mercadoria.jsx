@@ -5,7 +5,7 @@ import carrinho from './carrinho.png'
 
 const Mercadoria = ({nome, preço, fonte, adcionar, bkcn, frete, id, total, score }) => {
 
-    //const {} = props
+ 
         
     
         return(

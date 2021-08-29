@@ -11,15 +11,6 @@ import trash from './trash.png'
 
 
 
-//var carrinho1 =[];
-
-
-
-//const
-
-//function 
-
-var pesquisados="nulo";
 
 
 function Lista(prosp){
@@ -27,24 +18,6 @@ function Lista(prosp){
    const {remover, display1, carrinho2} = prosp;
 
   
-      /*
-
-             <li class="list-group-item" 
-            style={{display:"flex", flexWrap: "wrap", justifyContent: "left", position: "relative", alignItems: "center"}}>
-                
-                <p style={{fontFamily: "Helvetica, Arial, sans-serif", 
-                fontWeight:"bolder", color: "rgb(61, 58, 58)"}} > nome </p>
-
-                <p style={{fontFamily: "Helvetica, Arial, sans-serif", 
-                fontWeight:"bolder", color: "rgb(124, 110, 110)", fontStyle: "italic", marginLeft: "5px"}}> total </p>
-
-                <img style="width: 30px; height: auto; margin-top: -20px 0 0 5px;" src=""/>
-            
-            </li>
-
-      */
-
-            
       var lista1=[]; 
       
 
@@ -53,11 +26,11 @@ function Lista(prosp){
        for(var i =0; i<= carrinho2.length; i++)    
         {
           var a = data.filter( obj => (obj.id == carrinho2[i]));
-          //console.log("Add1", a);
+        
 
-          //lista1.push(Object.assign({}, a));//[{}]
 
-           lista1.push(a.map(
+
+          lista1.push(a.map(
 
                           (items, index) => {
                           
@@ -181,7 +154,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
           
                   
                         <input className="form-control " type="search"  placeholder="Pesquise o item pelo nome" aria-label="Search"
-                        style={{backgroundColor: "#682ea2", width: "400px"}} onChange={pesquisar}/>
+                        style={{backgroundColor: "#682ea2", width: "400px"}} onKeyUp={pesquisar}/>
           
                         
                         <img onClick={AE_lista} class="rounded-circle image" src={carrinho}  style={{width: "60px", height: "auto"}} />
@@ -227,8 +200,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
             display_car: 'none'
 
           })
-          //updateState = updateState.bind(this)
-          //this.handleChange2=this.handleChange2;
+     
 
 
   } 
@@ -242,8 +214,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
 
     let filter = [];
 
-    if(pesquisados != "nulo")
-        return pesquisados;
+    
 
     
 
@@ -269,7 +240,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
 
                                   
 
-                                    //this.setState({produtos: filter, ordem: this.state.ordem});
+                                    
 
                                     return filter;
     }  
@@ -292,7 +263,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
 
                                      
 
-                                      //this.setState({produtos: filter, ordem: this.state.ordem});
+                                    
 
                                       return filter;
                                   
@@ -318,7 +289,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
 
                                      
 
-                                      //this.setState({produtos: filter, ordem: this.state.ordem});
+                                     
 
                                       return filter;
                                   
@@ -344,7 +315,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
 
                                      
 
-                                      //this.setState({produtos: filter, ordem: this.state.ordem});
+                                 
 
                                       return filter;
                                   
@@ -372,8 +343,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
  
                                       
  
-                                       //this.setState({produtos: filter, ordem: this.state.ordem});
- 
+                                  
                                        return filter;
                                    
  
@@ -413,7 +383,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
           alert("Você pode ver os itens do seu carrinho"+
           "\nclicando no carrinho da barra principal do site");
 
-          //console.log("this.state.botãocarrinho_visible", this.state.botãocarrinho_visible);
+          
 
           this.setState({produtos: this.state.produtos, ordem: this.state.ordem, carrinho1: todos, display_car: this.state.display_car});
 
@@ -474,19 +444,35 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
       var procurando =e.target.value;
       var todos = this.state.produtos;
 
+      console.log("value is",e.target.value,"\nkey is", e.key)
+
       var achou=[];
+
+     
+
+      if(procurando == '' || procurando.length == 0)
+                this.setState({produtos: data, ordem: this.state.ordem, carrinho1: this.state.carrinho1, display_car: this.state.display_car});
+  
 
        
        try
         {
-            
-             achou = todos.filter(obj => obj.name.indexOf(procurando) != -1 );
+            if(e.keyCode ==13)
+            {
+                  achou = todos.filter(obj => obj.name.toUpperCase().indexOf(procurando.toUpperCase()) != -1 );
+                  
+                  
+                  if(achou.length)
+                        this.setState({produtos: achou, ordem: this.state.ordem, carrinho1: this.state.carrinho1, display_car: this.state.display_car});
+                
+
+
+            } 
            
         }catch(e1){ console.log(e1)} 
         
 
-       if(achou != []) 
-        pesquisados = achou;
+    
      
 
 
@@ -500,8 +486,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
     const {dados} = this.state.produtos; 
    
       var a = this.ordenar();
-      console.log("a", a);
-
+      
                   return (
                     <div>
                      
@@ -525,8 +510,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
                               
                                if(this.state.carrinho1.includes(items.id))
                                  backgroundColornow ="#cc2738"
-                                 
-                                 //const image= require('./styles/'+items.image);
+                                
                               
                                 return(
                                   

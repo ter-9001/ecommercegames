@@ -3,17 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Select_ordem from './select_ordem'
 
-
-
-
-/*ReactDOM.render(
-  <React.StrictMode>
-      <Select_ordem/>
-  </React.StrictMode>,
-  document.getElementById('ab')
-);*/
 
 ReactDOM.render(
   <React.StrictMode>
