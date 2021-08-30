@@ -153,7 +153,7 @@ const Navbar_main = ({mudou, name, botãocarrinho, AE_lista, pesquisar}) => {
                 <div className=" form-inline">
           
                   
-                        <input className="form-control " type="search"  placeholder="Pesquise o item pelo nome" aria-label="Search"
+                        <input className="form-control " type="search"  placeholder="Pesquise o item pelo nome e aperte Enter" aria-label="Search"
                         style={{backgroundColor: "#682ea2", width: "400px"}} onKeyUp={pesquisar}/>
           
                         
